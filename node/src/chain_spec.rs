@@ -64,7 +64,7 @@ pub fn template_session_keys(keys: AuraId) -> parachain_template_runtime::Sessio
 pub fn development_config() -> ChainSpec {
 	// Give your base currency a unit name and decimal places
 	let mut properties = sc_chain_spec::Properties::new();
-	properties.insert("tokenSymbol".into(), "UNIT".into());
+	properties.insert("tokenSymbol".into(), "TEST".into());
 	properties.insert("tokenDecimals".into(), 12.into());
 	properties.insert("ss58Format".into(), 42.into());
 
@@ -119,7 +119,7 @@ pub fn development_config() -> ChainSpec {
 pub fn local_testnet_config() -> ChainSpec {
 	// Give your base currency a unit name and decimal places
 	let mut properties = sc_chain_spec::Properties::new();
-	properties.insert("tokenSymbol".into(), "UNIT".into());
+	properties.insert("tokenSymbol".into(), "TEST".into());
 	properties.insert("tokenDecimals".into(), 12.into());
 	properties.insert("ss58Format".into(), 42.into());
 
@@ -190,6 +190,9 @@ fn testnet_genesis(
 		},
 		balances: parachain_template_runtime::BalancesConfig {
 			balances: endowed_accounts.iter().cloned().map(|k| (k, 1 << 60)).collect(),
+		},
+		sudo: parachain_template_runtime::SudoConfig {
+			key: Some(get_account_id_from_seed::<sr25519::Public>("Alice")),
 		},
 		parachain_info: parachain_template_runtime::ParachainInfoConfig { parachain_id: id },
 		collator_selection: parachain_template_runtime::CollatorSelectionConfig {

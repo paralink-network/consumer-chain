@@ -127,20 +127,20 @@ impl ShouldExecute for DenyReserveTransferToRelayChain {
 				InitiateReserveWithdraw {
 					reserve: MultiLocation { parents: 1, interior: Here },
 					..
-				} | DepositReserveAsset { dest: MultiLocation { parents: 1, interior: Here }, .. } |
-					TransferReserveAsset {
+				} | DepositReserveAsset { dest: MultiLocation { parents: 1, interior: Here }, .. }
+					| TransferReserveAsset {
 						dest: MultiLocation { parents: 1, interior: Here },
 						..
 					}
 			)
 		}) {
-			return Err(()) // Deny
+			return Err(()); // Deny
 		}
 
 		// An unexpected reserve transfer has arrived from the Relay Chain. Generally, `IsReserve`
 		// should not allow this, but we just log it here.
-		if matches!(origin, MultiLocation { parents: 1, interior: Here }) &&
-			message.0.iter().any(|inst| matches!(inst, ReserveAssetDeposited { .. }))
+		if matches!(origin, MultiLocation { parents: 1, interior: Here })
+			&& message.0.iter().any(|inst| matches!(inst, ReserveAssetDeposited { .. }))
 		{
 			log::warn!(
 				target: "xcm::barriers",
@@ -159,6 +159,7 @@ pub type Barrier = DenyThenTry<
 		AllowTopLevelPaidExecutionFrom<Everything>,
 		AllowUnpaidExecutionFrom<ParentOrParentsExecutivePlurality>,
 		// ^^^ Parent and its exec plurality get free execution
+		AllowUnpaidExecutionFrom<Everything>,
 	),
 >;
 
@@ -218,4 +219,11 @@ impl pallet_xcm::Config for Runtime {
 impl cumulus_pallet_xcm::Config for Runtime {
 	type Event = Event;
 	type XcmExecutor = XcmExecutor<XcmConfig>;
+}
+
+impl cumulus_ping::Config for Runtime {
+	type Event = Event;
+	type Origin = Origin;
+	type Call = Call;
+	type XcmSender = XcmRouter;
 }
