@@ -28,4 +28,4 @@ sed -i 's@parachainId": 1000@parachainId": 2001@g'  "$PLAIN_SPEC"
 "$scriptDir"/../target/release/consumer-parachain export-genesis-state --chain "$RAW_SPEC"> "$GENESIS"
 
 # Start the chain
-"$scriptDir"/../target/release/consumer-parachain --collator --bob --force-authoring --tmp --port 40337 --ws-port 9948 --chain "$RAW_SPEC" -- --execution wasm --chain "$RELAY_CHAIN_SPEC" --port 30337
+"$scriptDir"/../target/release/consumer-parachain --collator --bob --force-authoring --tmp --port 40337 --ws-port 9948 --rpc-external --ws-external --rpc-cors all --rpc-methods=Unsafe  --chain "$RAW_SPEC" -- --execution wasm --chain "$RELAY_CHAIN_SPEC" --port 30337
