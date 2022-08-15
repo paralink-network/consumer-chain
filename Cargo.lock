@@ -6107,6 +6107,7 @@ dependencies = [
  "pallet-xcm",
  "parachain-info",
  "paralink-ink-runtime",
+ "paralink-xcm",
  "parity-scale-codec",
  "polkadot-parachain",
  "polkadot-runtime-common",
@@ -6154,8 +6155,26 @@ dependencies = [
  "frame-system",
  "log",
  "pallet-contracts",
+ "paralink-xcm",
  "parity-scale-codec",
  "sp-std",
+]
+
+[[package]]
+name = "paralink-xcm"
+version = "0.0.1"
+dependencies = [
+ "cumulus-pallet-xcm",
+ "cumulus-primitives-core",
+ "frame-support",
+ "frame-system",
+ "log",
+ "parity-scale-codec",
+ "scale-info",
+ "serde",
+ "sp-runtime",
+ "sp-std",
+ "xcm",
 ]
 
 [[package]]

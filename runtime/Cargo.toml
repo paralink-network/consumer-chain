@@ -84,6 +84,7 @@ pallet-randomness-collective-flip = { version = "4.0.0-dev", default-features = 
 
 # Paralink
 paralink-ink-runtime = { path = "../pallets/ink-extension/runtime", default-features = false  }
+paralink-xcm = { path = "../pallets/xcm", default-features = false}
 
 [features]
 default = [
@@ -139,6 +140,7 @@ std = [
 	"xcm-builder/std",
 	"xcm-executor/std",
 	"xcm/std",
+	"paralink-xcm/std"
 ]
 
 runtime-benchmarks = [

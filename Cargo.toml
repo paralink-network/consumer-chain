@@ -6,5 +6,6 @@ members = [
 	"node",
 	"pallets/ink-extension/contract",
 	"pallets/ink-extension/runtime",
+	"pallets/xcm",
 	"runtime",
 ]

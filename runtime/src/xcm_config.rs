@@ -227,3 +227,10 @@ impl cumulus_ping::Config for Runtime {
 	type Call = Call;
 	type XcmSender = XcmRouter;
 }
+
+impl paralink_xcm::Config for Runtime {
+	type Event = Event;
+	type Origin = Origin;
+	type Call = Call;
+	type XcmSender = XcmRouter;
+}
