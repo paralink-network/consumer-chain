@@ -17,7 +17,7 @@ pallet-contracts = { version = "4.0.0-dev", default-features = false, git = "htt
 
 #pallet-chainlink-feed = { git = "https://github.com/LaurentTrk/chainlink-polkadot", default-features = false,  branch = "sublink" }
 #sublink-parachain-oracle = { path = '../../parachain-oracle', default-features = false }
-#sublink-xcm = { path = '../../xcm', default-features = false }
+paralink-xcm = { path = '../../xcm', default-features = false }
 
 #paralink-ink-contract-extension = {path = '../contract', default-features = false}
 
@@ -33,5 +33,5 @@ std = [
     #"paralink-ink-contract-extension/std"
     #"pallet-chainlink-feed/std",
     #"sublink-parachain-oracle/std",
-    #"sublink-xcm/std",
+		"paralink-xcm/std",
 ]

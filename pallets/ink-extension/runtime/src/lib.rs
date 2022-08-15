@@ -29,15 +29,15 @@ impl<T> Default for ParalinkInkExtension<T> {
 	}
 }
 
-impl<R> ChainExtension<R> for ParalinkInkExtension<R>
+impl<Runtime> ChainExtension<Runtime> for ParalinkInkExtension<Runtime>
 where
-	R: pallet_contracts::Config,
+	Runtime: pallet_contracts::Config,
 	//Runtime: sublink_parachain_oracle::Config,
-	//Runtime: sublink_xcm::Config,
+	Runtime: paralink_xcm::Config,
 {
 	fn call<E>(&mut self, env: Environment<E, InitState>) -> Result<RetVal, DispatchError>
 	where
-		E: Ext<T = R>,
+		E: Ext<T = Runtime>,
 		<E::T as SysConfig>::AccountId: UncheckedFrom<<E::T as SysConfig>::Hash> + AsRef<[u8]>,
 	{
 		let func_id = env.func_id();
@@ -48,11 +48,13 @@ where
 				let mut env = env.buf_in_buf_out();
 				//// let feed_id: <Runtime as pallet_chainlink_feed::Config>::FeedId = env.read_as_unbounded(env.in_len())?;
 				//let feed_id: <<Runtime as sublink_xcm::Config>::Oracle as FeedOracle<Runtime>>::FeedId = env.read_as_unbounded(env.in_len())?;
-				//let feed =
-				//sublink_parachain_oracle::Pallet::<Runtime>::feed(feed_id.clone()).unwrap();
+				let feed_id: paralink_xcm::FeedId = env.read_as_unbounded(env.in_len())?;
+				let feed_value: paralink_xcm::FeedValue =
+					paralink_xcm::Pallet::<Runtime>::latest_data(feed_id.clone());
+				//let feed = sublink_parachain_oracle::Pallet::<Runtime>::feed(feed_id.clone()).unwrap();
 				//let answer = feed.latest_data();
 				//
-				let feed_id = 0xB64;
+				//let feed_id = 0xB64;
 				//let answer: u128 = 0x422;
 				//log::info!(
 				//"called latest_data extension with feed_id {:?} = {:?}",
@@ -61,8 +63,8 @@ where
 				//);
 
 				let answer = RoundData {
-					started_at: feed_id,
-					answer: 0xB64,
+					started_at: feed_id.id,
+					answer: feed_value.value,
 					updated_at: 16,
 					answered_in_round: 0,
 				};
