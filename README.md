@@ -1,4 +1,6 @@
-# Substrate Cumulus Parachain Template
+# Substrate Cumulus Parachain Consumer Chain
+
+This is an example of a possible consumer chain that interacts with [Paralink Parachain](https://github.com/paralink-network/paralink-substrate) to retrieve a feed price. See [paralink-xcm](https://github.com/paralink-network/paralink-xcm) repo to setup the whole environment.
 
 A new [Cumulus](https://github.com/paritytech/cumulus/)-based Substrate node, ready for hacking ☁️..
 
